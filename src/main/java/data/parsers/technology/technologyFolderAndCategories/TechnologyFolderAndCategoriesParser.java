@@ -1,4 +1,4 @@
-package data.parsers.technologyFolderAndCategories;
+package data.parsers.technology.technologyFolderAndCategories;
 
 import data.objects.technology.technologyFolderAndCategories.TechnologyFolderAndCategories;
 import data.parsers.BaseParser;

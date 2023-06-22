@@ -1,4 +1,4 @@
-package application.models;
+package application.baseObjects;
 
 public abstract class BaseModel {
 }

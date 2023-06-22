@@ -1,4 +1,6 @@
-package application.models;
+package application.views.technologyCategories;
+
+import application.baseObjects.BaseModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +19,10 @@ public class TechnologyCategoriesModel extends BaseModel {
 
     public void removeCategory(String category) {
         categories.remove(category);
+    }
+
+    public void updateCategory(int index, String category) {
+        categories.set(index, category);
     }
 
     public List<String> getCategories() {

@@ -5,7 +5,7 @@ import data.converters.TechnologyTreeConverter;
 import data.objects.technology.technologyFolderAndCategories.TechnologyFolderAndCategories;
 import data.objects.technology.technologyTree.TechnologyTree;
 import data.parsers.technology.technologyTree.TechnologyTreeParser;
-import data.parsers.technologyFolderAndCategories.TechnologyFolderAndCategoriesParser;
+import data.parsers.technology.technologyFolderAndCategories.TechnologyFolderAndCategoriesParser;
 import utils.FileUtils;
 
 public class DataManager {
