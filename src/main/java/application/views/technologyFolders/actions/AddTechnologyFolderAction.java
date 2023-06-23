@@ -1,12 +1,16 @@
 package application.views.technologyFolders.actions;
 
 import application.baseObjects.actions.ClickAction;
+import application.views.technologyFolders.TechnologyFoldersConstants;
 import application.views.technologyFolders.TechnologyFoldersView;
 import data.objects.technology.technologyFolderAndCategories.TechnologyFoldersInstance;
 import data.objects.technology.technologyFolderAndCategories.TechnologyFoldersInstanceAvailable;
 import data.objects.technology.technologyFolderAndCategories.TechnologyFoldersInstanceAvailableNot;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
+
+import static application.views.technologyFolders.TechnologyFoldersConstants.*;
 
 public class AddTechnologyFolderAction extends ClickAction<TechnologyFoldersView> {
 
@@ -16,27 +20,28 @@ public class AddTechnologyFolderAction extends ClickAction<TechnologyFoldersView
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(getView().folderList.getSelectedValue() != null) {
-            getView().getModel().updateTechnologyFoldersInstance(createInstanceWithFieldParameter());
-            getView().updateView();
+        final JList<String> foldersList = getListFromScrollingList(SCROLLING_LIST_FOLDERS);
+        if(foldersList.getSelectedValue() != null) {
+            getView().getModel().updateTechnologyFoldersInstance(foldersList.getSelectedValue(), createInstanceWithFieldParameter());
+            updateView();
         } else {
             getView().getModel().addTechnologyFoldersInstance(createInstanceWithFieldParameter());
-            getView().updateView();
+            updateView();
         }
-        getView().folderList.setSelectedValue(getView().nameTextField.getText(), true);
+        getListFromScrollingList(SCROLLING_LIST_FOLDERS).setSelectedValue(getTextfield(TEXTFIELD_NAME).getText(), true);
     }
 
     private TechnologyFoldersInstance createInstanceWithFieldParameter() {
         final TechnologyFoldersInstance technologyFoldersInstance = new TechnologyFoldersInstance();
-        technologyFoldersInstance.setName(getView().nameTextField.getText());
-        technologyFoldersInstance.setDoctrine(getView().doctrineCheckbox.isSelected());
-        technologyFoldersInstance.setLedger((String) getView().ledgerComboBox.getSelectedItem());
-        if(getView().availableConditionCheckbox.isSelected()) {
+        technologyFoldersInstance.setName(getTextfield(TEXTFIELD_NAME).getText());
+        technologyFoldersInstance.setDoctrine(getCheckbox(CHECKBOX_DOCTRINE).isSelected());
+        technologyFoldersInstance.setLedger((String) getCombobox(COMBOBOX_LEDGER).getSelectedItem());
+        if(getCheckbox(CHECKBOX_AVAILABLE_CONDITION).isSelected()) {
             final TechnologyFoldersInstanceAvailable technologyFoldersInstanceAvailable = new TechnologyFoldersInstanceAvailable();
-            technologyFoldersInstanceAvailable.setHasDlc((String) getView().availableConditionHasDlcComboBox.getSelectedItem());
-            if(getView().conditionNotCheckbox.isSelected()) {
+            technologyFoldersInstanceAvailable.setHasDlc((String) getCombobox(COMBOBOX_AVAILABLE_CONDITION_HAS_DLC).getSelectedItem());
+            if(getCheckbox(CHECKBOX_NOT_CONDITION).isSelected()) {
                 final TechnologyFoldersInstanceAvailableNot technologyFoldersInstanceAvailableNot = new TechnologyFoldersInstanceAvailableNot();
-                technologyFoldersInstanceAvailableNot.setHasDlc((String) getView().conditionNotHasDlcComboBox.getSelectedItem());
+                technologyFoldersInstanceAvailableNot.setHasDlc((String) getCombobox(COMBOBOX_CONDITION_NOT_HAS_DLC).getSelectedItem());
                 technologyFoldersInstanceAvailable.setNot(technologyFoldersInstanceAvailableNot);
             }
             technologyFoldersInstance.setAvailable(technologyFoldersInstanceAvailable);

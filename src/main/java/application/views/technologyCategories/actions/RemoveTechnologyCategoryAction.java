@@ -3,7 +3,10 @@ package application.views.technologyCategories.actions;
 import application.baseObjects.actions.ClickAction;
 import application.views.technologyCategories.TechnologyCategoriesView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
+
+import static application.views.technologyCategories.TechnologyCategoriesConstants.SCROLLING_LIST_CATEGORIES;
 
 public class RemoveTechnologyCategoryAction extends ClickAction<TechnologyCategoriesView> {
 
@@ -13,10 +16,11 @@ public class RemoveTechnologyCategoryAction extends ClickAction<TechnologyCatego
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        final String selectedValue = getView().categoryList.getSelectedValue();
+        final JList<String> scrollingList = getListFromScrollingList(SCROLLING_LIST_CATEGORIES);
+        final String selectedValue = scrollingList.getSelectedValue();
         if(selectedValue != null) {
             getView().getModel().removeCategory(selectedValue);
-            getView().categoryList.clearSelection();
+            scrollingList.clearSelection();
             getView().updateView();
         }
     }

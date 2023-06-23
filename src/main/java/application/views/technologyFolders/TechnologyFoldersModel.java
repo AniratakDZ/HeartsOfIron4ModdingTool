@@ -32,10 +32,10 @@ public class TechnologyFoldersModel extends BaseModel {
         getAllTechnologyFoldesInstances().add(technologyFoldersInstance);
     }
 
-    public void updateTechnologyFoldersInstance(TechnologyFoldersInstance technologyFoldersInstance) {
+    public void updateTechnologyFoldersInstance(String name, TechnologyFoldersInstance technologyFoldersInstance) {
         final List<TechnologyFoldersInstance> instances = getAllTechnologyFoldesInstances();
         final List<String> instanceNames = getAllTechnologyFoldesInstances().stream().map(TechnologyFoldersInstance::getName).collect(Collectors.toList());
-        instances.set(instanceNames.indexOf(technologyFoldersInstance.getName()), technologyFoldersInstance);
+        instances.set(instanceNames.indexOf(name), technologyFoldersInstance);
     }
 
     private List<TechnologyFoldersInstance> getAllTechnologyFoldesInstances() {

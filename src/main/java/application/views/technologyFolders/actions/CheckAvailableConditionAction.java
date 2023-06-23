@@ -1,9 +1,12 @@
 package application.views.technologyFolders.actions;
 
 import application.baseObjects.actions.ClickAction;
+import application.views.technologyFolders.TechnologyFoldersConstants;
 import application.views.technologyFolders.TechnologyFoldersView;
 
 import java.awt.event.ActionEvent;
+
+import static application.views.technologyFolders.TechnologyFoldersConstants.*;
 
 public class CheckAvailableConditionAction extends ClickAction<TechnologyFoldersView> {
 
@@ -13,16 +16,16 @@ public class CheckAvailableConditionAction extends ClickAction<TechnologyFolders
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(getView().availableConditionCheckbox.isSelected()) {
-            getView().availableConditionHasDlcLabel.setVisible(true);
-            getView().availableConditionHasDlcComboBox.setVisible(true);
-            getView().conditionNotLabel.setVisible(true);
-            getView().conditionNotCheckbox.setVisible(true);
+        if(getCheckbox(CHECKBOX_AVAILABLE_CONDITION).isSelected()) {
+            getLabel(LABEL_AVAILABLE_CONDITION_HAS_DLC).setVisible(true);
+            getCombobox(COMBOBOX_AVAILABLE_CONDITION_HAS_DLC).setVisible(true);
+            getLabel(LABEL_NOT_CONDITION).setVisible(true);
+            getCheckbox(CHECKBOX_NOT_CONDITION).setVisible(true);
         } else {
-            getView().availableConditionHasDlcLabel.setVisible(false);
-            getView().availableConditionHasDlcComboBox.setVisible(false);
-            getView().conditionNotLabel.setVisible(false);
-            getView().conditionNotCheckbox.setVisible(false);
+            getLabel(LABEL_AVAILABLE_CONDITION_HAS_DLC).setVisible(false);
+            getCombobox(COMBOBOX_AVAILABLE_CONDITION_HAS_DLC).setVisible(false);
+            getLabel(LABEL_NOT_CONDITION).setVisible(false);
+            getCheckbox(CHECKBOX_NOT_CONDITION).setVisible(false);
         }
     }
 }

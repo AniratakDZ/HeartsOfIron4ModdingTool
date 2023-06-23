@@ -6,7 +6,10 @@ import data.objects.technology.technologyFolderAndCategories.TechnologyFoldersIn
 import data.objects.technology.technologyFolderAndCategories.TechnologyFoldersInstanceAvailable;
 import data.objects.technology.technologyFolderAndCategories.TechnologyFoldersInstanceAvailableNot;
 
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
+
+import static application.views.technologyFolders.TechnologyFoldersConstants.*;
 
 public class SelectFolderAction extends ListAction<TechnologyFoldersView> {
 
@@ -16,39 +19,46 @@ public class SelectFolderAction extends ListAction<TechnologyFoldersView> {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
-        if(!e.getValueIsAdjusting() && getView().folderList.getSelectedValue() != null) {
-            final TechnologyFoldersInstance technologyFoldersInstance = getView().getModel().getTechnologyFoldersInstanceByName(getView().folderList.getSelectedValue());
-            getView().nameTextField.setText(technologyFoldersInstance.getName());
-            getView().ledgerComboBox.setSelectedItem(technologyFoldersInstance.getLedger());
-            getView().doctrineCheckbox.setSelected(technologyFoldersInstance.isDoctrine());
+        final JList<String> scrollingList = getListFromScrollingList(SCROLLING_LIST_FOLDERS);
+        if(!e.getValueIsAdjusting() && scrollingList.getSelectedValue() != null) {
+            final TechnologyFoldersInstance technologyFoldersInstance = getView().getModel().getTechnologyFoldersInstanceByName(scrollingList.getSelectedValue());
+            getTextfield(TEXTFIELD_NAME).setText(technologyFoldersInstance.getName());
+            getCombobox(COMBOBOX_LEDGER).setSelectedItem(technologyFoldersInstance.getLedger());
+            getCheckbox(CHECKBOX_DOCTRINE).setSelected(technologyFoldersInstance.isDoctrine());
             final TechnologyFoldersInstanceAvailable available = technologyFoldersInstance.getAvailable();
             final boolean isAvailable = available != null;
+            final JComboBox<String> availableCombobox = getCombobox(COMBOBOX_AVAILABLE_CONDITION_HAS_DLC);
+            final JComboBox<String> notHasDlcCombobox = getCombobox(COMBOBOX_CONDITION_NOT_HAS_DLC);
+            final JCheckBox availableCondition = getCheckbox(CHECKBOX_AVAILABLE_CONDITION);
+            final JCheckBox notCondition = getCheckbox(CHECKBOX_NOT_CONDITION);
             if(isAvailable) {
-                getView().availableConditionCheckbox.setSelected(isAvailable);
+                availableCondition.setSelected(isAvailable);
                 final String availableHasDlc = available.getHasDlc();
                 if(availableHasDlc != null) {
-                    getView().availableConditionHasDlcComboBox.setSelectedItem(availableHasDlc);
+                    availableCombobox.setSelectedItem(availableHasDlc);
                 } else {
-                    getView().availableConditionHasDlcComboBox.setSelectedItem("");
+                    availableCombobox.setSelectedItem("");
                 }
                 final TechnologyFoldersInstanceAvailableNot not = available.getNot();
+                new CheckAvailableConditionAction(getView()).actionPerformed(null);
                 if(not != null) {
-                    getView().conditionNotCheckbox.setSelected(true);
+                    notCondition.setSelected(true);
                     final String notHasDlc = not.getHasDlc();
                     if(notHasDlc != null) {
-                        getView().conditionNotHasDlcComboBox.setSelectedItem(notHasDlc);
+                        notHasDlcCombobox.setSelectedItem(notHasDlc);
                     } else {
-                        getView().conditionNotHasDlcComboBox.setSelectedItem("");
+                        notHasDlcCombobox.setSelectedItem("");
                     }
+                    new CheckNotConditionAction(getView()).actionPerformed(null);
                 } else {
-                    getView().conditionNotHasDlcComboBox.setSelectedItem("");
-                    getView().conditionNotCheckbox.setSelected(false);
+                    notHasDlcCombobox.setSelectedItem("");
+                    notCondition.setSelected(false);
                 }
             } else {
-                getView().availableConditionCheckbox.setSelected(false);
-                getView().availableConditionHasDlcComboBox.setSelectedItem("");
-                getView().conditionNotCheckbox.setSelected(false);
-                getView().conditionNotHasDlcComboBox.setSelectedItem("");
+                availableCondition.setSelected(false);
+                availableCombobox.setSelectedItem("");
+                notCondition.setSelected(false);
+                notHasDlcCombobox.setSelectedItem("");
             }
         }
     }

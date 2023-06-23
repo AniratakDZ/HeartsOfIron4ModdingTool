@@ -1,9 +1,12 @@
 package application.views.technologyFolders.actions;
 
 import application.baseObjects.actions.ClickAction;
+import application.views.technologyFolders.TechnologyFoldersConstants;
 import application.views.technologyFolders.TechnologyFoldersView;
 
 import java.awt.event.ActionEvent;
+
+import static application.views.technologyFolders.TechnologyFoldersConstants.*;
 
 public class CheckNotConditionAction extends ClickAction<TechnologyFoldersView> {
 
@@ -13,12 +16,12 @@ public class CheckNotConditionAction extends ClickAction<TechnologyFoldersView> 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(getView().conditionNotCheckbox.isSelected()) {
-            getView().conditionNotHasDlcLabel.setVisible(true);
-            getView().conditionNotHasDlcComboBox.setVisible(true);
+        if(getCheckbox(CHECKBOX_NOT_CONDITION).isSelected()) {
+            getLabel(LABEL_NOT_CONDITION_HAS_DLC).setVisible(true);
+            getCombobox(COMBOBOX_CONDITION_NOT_HAS_DLC).setVisible(true);
         } else {
-            getView().conditionNotHasDlcLabel.setVisible(false);
-            getView().conditionNotHasDlcComboBox.setVisible(false);
+            getLabel(LABEL_NOT_CONDITION_HAS_DLC).setVisible(false);
+            getCombobox(COMBOBOX_CONDITION_NOT_HAS_DLC).setVisible(false);
         }
     }
 }

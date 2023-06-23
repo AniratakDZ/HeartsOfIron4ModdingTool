@@ -7,55 +7,29 @@ import application.views.technologyCategories.actions.RemoveTechnologyCategoryAc
 import application.views.technologyCategories.actions.SelectCategoryAction;
 import data.DataManager;
 
-import javax.swing.*;
-
-public class TechnologyCategoriesView extends BaseView<TechnologyCategoriesModel> {
-
-    public final JList<String> categoryList;
-    public final DefaultListModel<String> categoryListModel;
-    public final JTextField nameTextfield = new JTextField();
+public class TechnologyCategoriesView extends BaseView<TechnologyCategoriesModel> implements TechnologyCategoriesConstants {
 
     public TechnologyCategoriesView(TechnologyCategoriesModel model) {
         super(model);
         this.setModel(model);
-
-        categoryListModel = new DefaultListModel<>();
-        categoryList = new JList<>(categoryListModel);
-
-        JScrollPane scrollPane = new JScrollPane(categoryList);
-        JButton addButton = new JButton("+");
-        JButton removeButton = new JButton("-");
-        JButton clearButton = new JButton("C");
-        JLabel nameLabel = new JLabel("Name: ");
-
         setLayout(null);
 
-        scrollPane.setBounds(0, 0, 300, 200);
-        addButton.setBounds(0, 200, 100, 25);
-        removeButton.setBounds(100, 200, 100, 25);
-        nameLabel.setBounds(300, 0, 100, 25);
-        nameTextfield.setBounds(400, 0, 175, 25);
-        clearButton.setBounds(200, 200, 100, 25);
+        addTextfield(TEXTFIELD_NAME, 400, 0);
+        addScrollingList(SCROLLING_LIST_CATEGORIES, 0, 0);
+        addButton(BUTTON_ADD, "+", 0, 200);
+        addButton(BUTTON_REMOVE, "-", 100, 200);
+        addButton(BUTTON_CLEAR, "C", 200, 200);
+        addLabel(LABEL_NAME, "Name: ", 300, 0);
 
-        categoryList.addListSelectionListener(new SelectCategoryAction(this));
-        clearButton.addActionListener(new ClearCurrentTechnologyCategoryAction(this));
-        addButton.addActionListener(new AddTechnologyCategoryAction(this));
-        removeButton.addActionListener(new RemoveTechnologyCategoryAction(this));
-
-        add(scrollPane);
-        add(addButton);
-        add(removeButton);
-        add(nameLabel);
-        add(nameTextfield);
-        add(clearButton);
+        addListAction(SCROLLING_LIST_CATEGORIES, new SelectCategoryAction(this));
+        addClickAction(BUTTON_ADD, new AddTechnologyCategoryAction(this));
+        addClickAction(BUTTON_REMOVE, new RemoveTechnologyCategoryAction(this));
+        addClickAction(BUTTON_CLEAR, new ClearCurrentTechnologyCategoryAction(this));
     }
 
     @Override
     public void updateView() {
-        categoryListModel.removeAllElements();
-        for(String element : getModel().getCategories()) {
-            categoryListModel.addElement(element);
-        }
+        getScrollingList(SCROLLING_LIST_CATEGORIES).updateElements(getModel().getCategories());
         DataManager.getTechnologyFolderAndCategories().getCategories().setCategories(getModel().getCategories());
     }
 }

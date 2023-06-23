@@ -4,135 +4,55 @@ import application.baseObjects.BaseView;
 import application.views.technologyFolders.actions.*;
 import data.DataManager;
 import data.objects.technology.technologyFolderAndCategories.TechnologyFoldersInstance;
-import data.objects.technology.technologyFolderAndCategories.TechnologyFoldersInstanceAvailable;
-import data.objects.technology.technologyFolderAndCategories.TechnologyFoldersInstanceAvailableNot;
 
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.Arrays.asList;
-
-public class TechnologyFoldersView extends BaseView<TechnologyFoldersModel> {
-
-    public final JList<String> folderList;
-    public final DefaultListModel<String> folderListModel;
-    public final JTextField nameTextField;
-    public final JComboBox<String> ledgerComboBox;
-    public final JCheckBox doctrineCheckbox;
-    public final JCheckBox availableConditionCheckbox;
-    public final JComboBox<String> availableConditionHasDlcComboBox;
-    public final JCheckBox conditionNotCheckbox;
-    public final JComboBox<String> conditionNotHasDlcComboBox;
-    public final JLabel availableConditionHasDlcLabel;
-    public final JLabel conditionNotLabel;
-    public final JLabel conditionNotHasDlcLabel;
+public class TechnologyFoldersView extends BaseView<TechnologyFoldersModel> implements TechnologyFoldersConstants {
 
     public TechnologyFoldersView(TechnologyFoldersModel model) {
         super(model);
         this.setModel(model);
-
-        folderListModel = new DefaultListModel<>();
-        folderList = new JList<>(folderListModel);
-        nameTextField = new JTextField();
-        ledgerComboBox = new JComboBox<>();
-        doctrineCheckbox = new JCheckBox();
-        availableConditionCheckbox = new JCheckBox();
-        availableConditionHasDlcComboBox = new JComboBox<>();
-        conditionNotCheckbox = new JCheckBox();
-        conditionNotHasDlcComboBox = new JComboBox<>();
-
-        ledgerComboBox.addItem("");
-        ledgerComboBox.addItem("army");
-        ledgerComboBox.addItem("air");
-        ledgerComboBox.addItem("navy");
-        ledgerComboBox.addItem("civilian");
-
-        final List<String> dlcs = new ArrayList<>(asList("", "\"No Step Back\"", "\"By Blood Alone\"", "\"Man the Guns\""));
-        for(String dlc : dlcs) {
-            availableConditionHasDlcComboBox.addItem(dlc);
-            conditionNotHasDlcComboBox.addItem(dlc);
-        }
-
-        JScrollPane scrollPane = new JScrollPane(folderList);
-        JButton addButton = new JButton("+");
-        JButton removeButton = new JButton("-");
-        JButton clearButton = new JButton("C");
-        JLabel nameLabel = new JLabel("Name: ");
-        JLabel ledgerLabel = new JLabel("Technologie Typ: ");
-        JLabel doctrineLabel = new JLabel("Doktrin: ");
-        JLabel availableConditionLabel = new JLabel("Verfügbar wenn: ");
-        availableConditionHasDlcLabel = new JLabel("DLC: ");
-        conditionNotLabel = new JLabel("Nicht verfügbar wenn: ");
-        conditionNotHasDlcLabel = new JLabel("DLC: ");
-
         setLayout(null);
 
-        scrollPane.setBounds(0, 0, 300, 200);
-        addButton.setBounds(0, 200, 100, 25);
-        removeButton.setBounds(100, 200, 100, 25);
-        clearButton.setBounds(200, 200, 100, 25);
-        nameLabel.setBounds(300, 0, 100, 25);
-        nameTextField.setBounds(400, 0, 175, 25);
-        ledgerLabel.setBounds(300, 25, 100, 25);
-        ledgerComboBox.setBounds(400, 25, 175, 25);
-        doctrineLabel.setBounds(300, 50, 100, 25);
-        doctrineCheckbox.setBounds(397, 37, 50, 50);
-        availableConditionLabel.setBounds(300, 75, 100, 25);
-        availableConditionCheckbox.setBounds(397, 62, 50, 50);
-        availableConditionHasDlcLabel.setBounds(300, 100, 100, 25);
-        availableConditionHasDlcComboBox.setBounds(400, 100, 175, 25);
-        conditionNotLabel.setBounds(300, 125, 100, 25);
-        conditionNotCheckbox.setBounds(397, 112, 50, 50);
-        conditionNotHasDlcLabel.setBounds(300, 150, 100, 25);
-        conditionNotHasDlcComboBox.setBounds(400, 150, 175, 25);
+        addScrollingList(SCROLLING_LIST_FOLDERS, 0, 0);
+        addTextfield(TEXTFIELD_NAME,400, 0);
+        addComboBox(COMBOBOX_LEDGER, 400, 25);
+        addCheckBox(CHECKBOX_DOCTRINE, 397, 50);
+        addCheckBox(CHECKBOX_AVAILABLE_CONDITION, 397, 75);
+        addComboBox(COMBOBOX_AVAILABLE_CONDITION_HAS_DLC, 400, 100, false);
+        addCheckBox(CHECKBOX_NOT_CONDITION, 397, 125, false);
+        addComboBox(COMBOBOX_CONDITION_NOT_HAS_DLC, 400, 150, false);
+        addButton(BUTTON_ADD, "+", 0, 200);
+        addButton(BUTTON_REMOVE, "-", 100, 200);
+        addButton(BUTTON_CLEAR, "C", 200, 200);
+        addLabel(LABEL_NAME, "Name: ", 300, 0);
+        addLabel(LABEL_LEDGER, "Technologie Typ: ", 300, 25);
+        addLabel(LABEL_DOCTRINE, "Doktrin: ", 300, 50);
+        addLabel(LABEL_AVAILABLE_CONDITION, "Verfügbar wenn: ", 300 ,75);
+        addLabel(LABEL_AVAILABLE_CONDITION_HAS_DLC, "DLC: ", 300, 100, false);
+        addLabel(LABEL_NOT_CONDITION, "Nicht verfügbar wenn: ", 300 ,125, false);
+        addLabel(LABEL_NOT_CONDITION_HAS_DLC, "DLC: ", 300, 150, false);
 
-        availableConditionHasDlcLabel.setVisible(false);
-        availableConditionHasDlcComboBox.setVisible(false);
-        conditionNotLabel.setVisible(false);
-        conditionNotCheckbox.setVisible(false);
-        conditionNotHasDlcLabel.setVisible(false);
-        conditionNotHasDlcComboBox.setVisible(false);
+        final List<String> ledgerData = Arrays.asList("", "army", "air", "navy", "civilian");
+        fillCombobox(COMBOBOX_LEDGER, ledgerData);
+        final List<String> dlcData = Arrays.asList("", "\"No Step Back\"", "\"By Blood Alone\"", "\"Man the Guns\"");
+        fillCombobox(COMBOBOX_CONDITION_NOT_HAS_DLC, dlcData);
+        fillCombobox(COMBOBOX_AVAILABLE_CONDITION_HAS_DLC, dlcData);
 
-        folderList.addListSelectionListener(new SelectFolderAction(this));
-        addButton.addActionListener(new AddTechnologyFolderAction(this));
-        clearButton.addActionListener(new ClearCurrentTechnologyFolderAction(this));
-        removeButton.addActionListener(new RemoveTechnologyFolderAction(this));
-        availableConditionCheckbox.addActionListener(new CheckAvailableConditionAction(this));
-        conditionNotCheckbox.addActionListener(new CheckNotConditionAction(this));
-
-        add(scrollPane);
-        add(addButton);
-        add(removeButton);
-        add(clearButton);
-        add(nameLabel);
-        add(nameTextField);
-        add(ledgerLabel);
-        add(ledgerComboBox);
-        add(doctrineLabel);
-        add(doctrineCheckbox);
-        add(availableConditionLabel);
-        add(availableConditionCheckbox);
-        add(availableConditionHasDlcLabel);
-        add(availableConditionHasDlcComboBox);
-        add(conditionNotLabel);
-        add(conditionNotCheckbox);
-        add(conditionNotHasDlcLabel);
-        add(conditionNotHasDlcComboBox);
+        addListAction(SCROLLING_LIST_FOLDERS, new SelectFolderAction(this));
+        addClickAction(BUTTON_ADD, new AddTechnologyFolderAction(this));
+        addClickAction(BUTTON_CLEAR, new ClearCurrentTechnologyFolderAction(this));
+        addClickAction(BUTTON_REMOVE, new RemoveTechnologyFolderAction(this));
+        addClickAction(CHECKBOX_AVAILABLE_CONDITION, new CheckAvailableConditionAction(this));
+        addClickAction(CHECKBOX_NOT_CONDITION, new CheckNotConditionAction(this));
     }
 
     @Override
     public void updateView() {
-        folderListModel.removeAllElements();
-        final List<String> folderNames = getModel().getTechnologyFolders().getFolderInstances().stream().map(TechnologyFoldersInstance::getName).collect(Collectors.toList());;
-        for(String element : folderNames) {
-            folderListModel.addElement(element);
-        }
+        getScrollingList(SCROLLING_LIST_FOLDERS).updateElements(getModel().getTechnologyFolders().getFolderInstances().stream().map(TechnologyFoldersInstance::getName).collect(Collectors.toList()));
         DataManager.getTechnologyFolderAndCategories().setFolders(getModel().getTechnologyFolders());
     }
 }
