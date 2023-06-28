@@ -1,6 +1,7 @@
 import application.Application;
 import com.formdev.flatlaf.FlatDarkLaf;
 import data.DataManager;
+import utils.LangHandler;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -11,10 +12,11 @@ public class HeartsOfIron4ModdingTool {
 
         try {
             UIManager.setLookAndFeel( new FlatDarkLaf());
-        } catch( Exception ex ) {
-            System.err.println( "Failed to initialize LaF" );
+        } catch( Exception ex ){
+            System.err.println("Failed to initialize LaF");
         }
 
+        LangHandler.initializeLanguage("de_de");
         DataManager.init();
 
         SwingUtilities.invokeLater(Application::new);

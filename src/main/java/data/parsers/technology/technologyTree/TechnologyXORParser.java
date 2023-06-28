@@ -16,9 +16,11 @@ public class TechnologyXORParser extends BaseParser<TechnologyXOR> {
 
             final String tempLine = lines.get(i);
 
-            if(i == 0 || tempLine.contains("}")){
-                technologyXOR.getTechnologies().add(tempLine.replace(TABULATOR_STRING, EMPTY_STRING));
+            if(i == 0 || tempLine.contains("}")) {
+                continue;
             }
+
+            technologyXOR.getTechnologies().add(tempLine.replace(TABULATOR_STRING, EMPTY_STRING));
         }
 
         return technologyXOR;

@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class BaseView<M extends BaseModel> extends JPanel implements BaseViewConstants {
+public abstract class BaseView<M extends BaseModel> extends AbstractView implements BaseViewConstants {
 
     private Map<String, JComponent> guiComponents;
 
@@ -18,8 +18,6 @@ public abstract class BaseView<M extends BaseModel> extends JPanel implements Ba
         this.model = model;
         guiComponents = new HashMap<>();
     }
-
-    public abstract void updateView();
 
     public JTextField getTextfield(String id) {
         return (JTextField) getComponent(id, TEXTFIELD);
@@ -45,30 +43,40 @@ public abstract class BaseView<M extends BaseModel> extends JPanel implements Ba
         return (JCheckBox) getComponent(id, CHECKBOX);
     }
 
-    public JComboBox<String> getComboBox(String id) {
-        return (JComboBox<String>) getComponent(id, COMBOBOX);
+    public JComboBox getComboBox(String id) {
+        return (JComboBox) getComponent(id, COMBOBOX);
     }
 
     public void addComboBox(String id, int x, int y) {
-        addComboBox(id, x, y, true);
+        addComboBox(id, x, y, true, false);
     }
 
-    public void addComboBox(String id, int x, int y, boolean visibility) {
-        final JComboBox<String> comboBox = new JComboBox<>();
-        comboBox.setBounds(x, y, 175, 25);
+    public void addComboBox(String id, int x, int y, boolean deactivated) {
+        addComboBox(id, x, y, true, deactivated);
+    }
+
+    public void addComboBox(String id, int x, int y, boolean visibility, boolean deactivated) {
+        final JComboBox comboBox = new JComboBox();
+        comboBox.setBounds(x, y, 250, 25);
         comboBox.setVisible(visibility);
+        comboBox.setEnabled(!deactivated);
         guiComponents.put(id, comboBox);
         this.add(comboBox);
     }
 
     public void addCheckBox(String id, int x, int y) {
-        addCheckBox(id, x, y, true);
+        addCheckBox(id, x, y, true, false);
     }
 
-    public void addCheckBox(String id, int x, int y, boolean visibility) {
+    public void addCheckBox(String id, int x, int y, boolean deactivated) {
+        addCheckBox(id, x, y, true, deactivated);
+    }
+
+    public void addCheckBox(String id, int x, int y, boolean visibility, boolean deactivated) {
         final JCheckBox checkBox = new JCheckBox();
         checkBox.setBounds(x, y, 25, 25);
         checkBox.setVisible(visibility);
+        checkBox.setEnabled(!deactivated);
         guiComponents.put(id, checkBox);
         this.add(checkBox);
     }
@@ -91,7 +99,7 @@ public abstract class BaseView<M extends BaseModel> extends JPanel implements Ba
 
     public void addLabel(String id, String text, int x, int y, boolean visibility) {
         final JLabel label = new JLabel(text);
-        label.setBounds(x, y, 100, 25);
+        label.setBounds(x, y, 250, 25);
         label.setVisible(visibility);
         guiComponents.put(id, label);
         this.add(label);
@@ -109,16 +117,21 @@ public abstract class BaseView<M extends BaseModel> extends JPanel implements Ba
         addScrollingList(id, x, y, true);
     }
 
-    public void addTextfield(String id, int x, int y, boolean visibility) {
+    public void addTextfield(String id, int x, int y, boolean visibility, boolean deactivated) {
         final JTextField textField = new JTextField();
-        textField.setBounds(x, y, 175, 25);
+        textField.setBounds(x, y, 250, 25);
         textField.setVisible(visibility);
+        textField.setEnabled(!deactivated);
         guiComponents.put(id, textField);
         this.add(textField);
     }
 
     public void addTextfield(String id, int x, int y) {
-        addTextfield(id, x, y,true);
+        addTextfield(id, x, y,true, false);
+    }
+
+    public void addTextfield(String id, int x, int y, boolean deactivated) {
+        addTextfield(id, x, y,true, deactivated);
     }
 
     public <T extends BaseView> void addClickAction(String id, ClickAction<T> action) {
@@ -170,7 +183,9 @@ public abstract class BaseView<M extends BaseModel> extends JPanel implements Ba
     }
 
     public void fillCombobox(String id, List<String> items) {
-        final JComboBox<String> comboBox = getComboBox(id);
+        final JComboBox comboBox = getComboBox(id);
+        comboBox.removeAllItems();
+        comboBox.addItem("");
         for(String item : items) {
             comboBox.addItem(item);
         }

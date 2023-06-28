@@ -1,7 +1,6 @@
 package utils;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +22,10 @@ public class FileUtils {
 
         scanner.close();
         return lines;
+    }
+
+    public static InputStream getFile(String filePath) {
+        return FileUtils.class.getClassLoader().getResourceAsStream(filePath);
     }
 
     public static void createFile(String fileName, List<String> lines) throws IOException {

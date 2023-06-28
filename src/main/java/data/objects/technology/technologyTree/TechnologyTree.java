@@ -7,6 +7,7 @@ import java.util.List;
 
 public class TechnologyTree extends GameObject {
 
+    private String name;
     private List<Technology> technologies;
 
     public TechnologyTree() {
@@ -19,5 +20,13 @@ public class TechnologyTree extends GameObject {
 
     public void setTechnologies(List<Technology> technologies) {
         this.technologies = technologies;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

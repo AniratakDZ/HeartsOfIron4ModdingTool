@@ -8,22 +8,38 @@ import data.parsers.technology.technologyTree.TechnologyTreeParser;
 import data.parsers.technology.technologyFolderAndCategories.TechnologyFolderAndCategoriesParser;
 import utils.FileUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class DataManager {
 
-    private static TechnologyTree technologyTree;
+    private static List<TechnologyTree> technologyTrees = new ArrayList<>();
     private static TechnologyFolderAndCategories technologyFolderAndCategories;
 
     public static void init() {
-        technologyTree = new TechnologyTreeParser().parse(new TechnologyTreeConverter().convert(FileUtils.readLines("industry.txt")));
+        technologyTrees = initializeTechnologyTrees();
         technologyFolderAndCategories = new TechnologyFolderAndCategoriesParser().parse(new TechnologiesConverter().convert(FileUtils.readLines("00_technology.txt")));
     }
 
-    public static TechnologyTree getTechnologyTree() {
-        return technologyTree;
+    private static List<TechnologyTree> initializeTechnologyTrees() {
+        final List<String> technologyTreeNames = new ArrayList<>(Arrays.asList("air_doctrine.txt", "air_techs.txt", "artillery.txt", "bba_air_techs.txt",
+                "electronic_mechanical_engineering.txt", "industry.txt", "infantry.txt", "land_doctrine.txt", "MTG_naval.txt", "MTG_naval_Support.txt",
+                "naval_doctrine.txt", "NSB_armor.txt", "support.txt"));
+        final List<TechnologyTree> technologyTreeList = new ArrayList<>();
+        for(String technologyTreeName : technologyTreeNames) {
+            technologyTreeList.add(new TechnologyTreeParser().parse(new TechnologyTreeConverter().convert(FileUtils.readLines("technologies/" + technologyTreeName))));
+            System.out.println("Parsed " + technologyTreeName);
+        }
+        return technologyTreeList;
     }
 
-    public static void setTechnologyTree(TechnologyTree technologyTree) {
-        DataManager.technologyTree = technologyTree;
+    public static List<TechnologyTree> getTechnologyTrees() {
+        return technologyTrees;
+    }
+
+    public static void setTechnologyTrees(List<TechnologyTree> technologyTrees) {
+        DataManager.technologyTrees = technologyTrees;
     }
 
     public static TechnologyFolderAndCategories getTechnologyFolderAndCategories() {

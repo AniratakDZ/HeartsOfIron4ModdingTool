@@ -1,5 +1,6 @@
 package application.baseObjects.actions;
 
+import application.baseObjects.AbstractView;
 import application.baseObjects.BaseModel;
 import application.baseObjects.BaseView;
 import application.baseObjects.JScrollingList;

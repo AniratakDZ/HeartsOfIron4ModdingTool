@@ -1,6 +1,6 @@
 package application.baseObjects;
 
-public abstract class BaseController<M extends BaseModel, V extends BaseView> {
+public abstract class BaseController<M extends BaseModel, V extends AbstractView> {
 
     private M model;
     private V view;

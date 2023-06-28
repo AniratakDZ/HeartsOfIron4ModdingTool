@@ -33,7 +33,7 @@ public class TechnologyTreeConverter extends BaseConverter {
                 continue;
             }
 
-            if(tempLine.contains("NOT")) {
+            if(tempLine.contains("NOT") && tempLine.contains("{") && tempLine.contains("}")) {
                 String positionValue = tempLine.substring(tempLine.indexOf("{"), tempLine.indexOf("}") + 1);
                 positionValue = positionValue.replace("{", "").replace("}", "");
                 lines.set(i, createTabulatorString(4) + "NOT = {");

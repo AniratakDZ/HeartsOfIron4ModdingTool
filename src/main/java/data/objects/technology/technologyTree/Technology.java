@@ -34,6 +34,25 @@ public class Technology extends GameObject {
     private double productionSpeedBuildingsFactor;
     private double industryRepairFactor;
     private double localResourcesFactor;
+    private String doctrineName;
+    private double airSuperiorityDetectFactor;
+    private String xpResearchType;
+    private int xpUnlockCost;
+    private boolean doctrine;
+    private double airCasPresentFactor;
+    private double airInterceptionDetectFactor;
+    private double airNavEfficiency;
+    private double airInterceptEfficiency;
+    private double airMissionXpGainFactor;
+    private double airSuperiorityEfficiency;
+    private TechnologyEquipmentBonus equipmentBonus;
+    private double armyBonusAirSuperiorityFactor;
+    private double airStrategicBomberNightPenalty;
+    private double airStrategicBomberBombingFactor;
+    private double airEscortEfficiency;
+    private double airStrategicBomberDefenseFactor;
+    private double airCasEfficiency;
+    private double airAceGenerationChanceFactor;
 
     public Technology() {
         technologyPaths = new ArrayList<>();

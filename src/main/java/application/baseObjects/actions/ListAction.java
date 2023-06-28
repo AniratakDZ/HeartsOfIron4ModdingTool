@@ -1,5 +1,6 @@
 package application.baseObjects.actions;
 
+import application.baseObjects.AbstractView;
 import application.baseObjects.BaseView;
 
 import javax.swing.event.ListSelectionListener;

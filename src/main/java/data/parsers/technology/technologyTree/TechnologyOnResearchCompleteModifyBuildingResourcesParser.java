@@ -10,7 +10,7 @@ import static java.lang.Integer.parseInt;
 public class TechnologyOnResearchCompleteModifyBuildingResourcesParser extends BaseParser<TechnologyOnResearchCompleteModifyBuildingResources> {
 
     public static String BUILDING = "building";
-    public static String RESOURCE = "rubber";
+    public static String RESOURCE = "resource";
     public static String AMOUNT = "amount";
 
     @Override

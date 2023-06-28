@@ -1,6 +1,7 @@
 package application.views.technologyFolders.actions;
 
 import application.baseObjects.JScrollingList;
+import application.baseObjects.actions.ClearAction;
 import application.baseObjects.actions.ClickAction;
 import application.views.technologyFolders.TechnologyFoldersConstants;
 import application.views.technologyFolders.TechnologyFoldersView;
@@ -22,6 +23,6 @@ public class RemoveTechnologyFolderAction extends ClickAction<TechnologyFoldersV
         getView().getModel().removeTechnologyFoldersInstanceByName(list.getSelectedValue());
         list.clearSelection();
         getView().updateView();
-        new ClearCurrentTechnologyFolderAction(getView()).actionPerformed(e);
+        new ClearAction(getView()).actionPerformed(e);
     }
 }

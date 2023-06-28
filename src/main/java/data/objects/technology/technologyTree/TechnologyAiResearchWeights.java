@@ -8,6 +8,10 @@ public class TechnologyAiResearchWeights extends GameObject {
     private double defensive;
     private double oil;
     private double rubber;
+    private double airDoctrine;
+    private double lightAir;
+    private double mediumAir;
+    private double heavyAir;
 
     public double getOffensive() {
         return offensive;

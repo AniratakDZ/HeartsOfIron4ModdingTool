@@ -17,6 +17,8 @@ public class TechnologyAiWillDoModifier extends GameObject {
     private boolean isMajor;
     private TechnologyAiWillDoModifierOr or;
     private String rubber;
+    private boolean aiLandDoctrineTier1Trigger;
+    private boolean aiLandDoctrineTier2Trigger;
 
     public double getFactor() {
         return factor;

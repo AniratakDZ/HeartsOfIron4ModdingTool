@@ -24,6 +24,6 @@ public interface TechnologyFoldersConstants {
     String BUTTON_REMOVE = "BUTTON_REMOVE";
     String BUTTON_CLEAR = "BUTTON_CLEAR";
 
-    String SCROLLING_LIST_FOLDERS = "SCROLLING_LIST_FOLDERS";
+    String SCROLLING_LIST_FOLDERS = "SCROLLING_LIST_FOLDERS_MAIN";
 
 }
