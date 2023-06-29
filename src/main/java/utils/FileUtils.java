@@ -10,6 +10,20 @@ import static java.util.Objects.requireNonNull;
 
 public class FileUtils {
 
+    public static String FOLDER_GENERATED_SOURCES = "generatedSources";
+    public static String FOLDER_CONVERTED = FOLDER_GENERATED_SOURCES + "/converted";
+
+    public static void init() {
+        final File generatedSources = new File(FOLDER_GENERATED_SOURCES);
+        final File convertedFolder = new File(FOLDER_CONVERTED);
+        if(!generatedSources.exists()) {
+            generatedSources.mkdir();
+        }
+        if(!convertedFolder.exists()) {
+            convertedFolder.mkdir();
+        }
+    }
+
     public static List<String> readLines(String filename) {
         final List<String> lines = new ArrayList<>();
 
@@ -28,8 +42,8 @@ public class FileUtils {
         return FileUtils.class.getClassLoader().getResourceAsStream(filePath);
     }
 
-    public static void createFile(String fileName, List<String> lines) throws IOException {
-        PrintWriter writer = new PrintWriter(fileName, StandardCharsets.UTF_8);
+    public static void createFile(String filePathName, List<String> lines) throws IOException {
+        PrintWriter writer = new PrintWriter(filePathName, StandardCharsets.UTF_8);
 
         for(String line : lines) {
             writer.println(line);

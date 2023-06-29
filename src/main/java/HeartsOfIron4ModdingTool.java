@@ -1,6 +1,7 @@
 import application.Application;
 import com.formdev.flatlaf.FlatDarkLaf;
 import data.DataManager;
+import utils.FileUtils;
 import utils.LangHandler;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ public class HeartsOfIron4ModdingTool {
             System.err.println("Failed to initialize LaF");
         }
 
+        FileUtils.init();
         LangHandler.initializeLanguage("de_de");
         DataManager.init();
 
