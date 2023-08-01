@@ -36,6 +36,7 @@ public class TechnologyParser extends BaseParser<Technology> {
     public static String INDUSTRY_AIR_DAMAGE_FACTOR = "industry_air_damage_factor";
     public static String PRODUCTION_FACTORY_START_EFFICIENCY_FACTOR = "production_factory_start_efficiency_factor";
     public static String PRODUCTION_FACTORY_EFFICIENCY_GAIN_FACTOR = "production_factory_efficiency_gain_factor";
+    public static String NEW_FIELD = "new_field";
 
     private final TechnologyPathParser technologyPathParser = new TechnologyPathParser();
     private final TechnologyFolderParser technologyFolderParser = new TechnologyFolderParser();
@@ -46,6 +47,7 @@ public class TechnologyParser extends BaseParser<Technology> {
     private final TechnologyAiResearchWeightsParser technologyAiResearchWeightsParser = new TechnologyAiResearchWeightsParser();
     private final TechnologyEnableBuildingParser technologyEnableBuildingParser = new TechnologyEnableBuildingParser();
     private final TechnologyOnResearchCompleteParser technologyOnResearchCompleteParser = new TechnologyOnResearchCompleteParser();
+    private final NewObjectParser newObjectParser = new NewObjectParser();
 
     @Override
     public Technology parse(List<String> lines) {
@@ -215,6 +217,10 @@ public class TechnologyParser extends BaseParser<Technology> {
 
             if(tempLine.contains(PRODUCTION_FACTORY_EFFICIENCY_GAIN_FACTOR)) {
                 technology.setProductionFactoryEfficiencyGainFactor(parseDouble(replaceTabulatorAndFreeEqualSign(tempLine, PRODUCTION_FACTORY_EFFICIENCY_GAIN_FACTOR, 2)));
+            }
+            
+            if(tempLine.contains(NEW_FIELD)) {
+                technology.setNewField(parseDouble(replaceTabulatorAndFreeEqualSign(tempLine, NEW_FIELD, 2)));
             }
         }
 
