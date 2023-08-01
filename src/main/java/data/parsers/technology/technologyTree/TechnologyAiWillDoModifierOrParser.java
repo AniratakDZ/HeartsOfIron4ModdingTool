@@ -14,6 +14,7 @@ public class TechnologyAiWillDoModifierOrParser extends BaseParser<TechnologyAiW
     public static String TUNGSTEN = "tungsten";
     public static String STEEL = "steel";
     public static String CHROMIUM = "chromium";
+    public static String NEW_FIELD = "new_field";
 
     @Override
     public TechnologyAiWillDoModifierOr parse(List<String> lines) {
@@ -56,6 +57,10 @@ public class TechnologyAiWillDoModifierOrParser extends BaseParser<TechnologyAiW
 
             if(tempLine.contains(CHROMIUM)) {
                 technologyAiWillDoModifierOr.setChromium(replaceTabulatorAndFreeEqualSign(tempLine, CHROMIUM, 5));
+            }
+            
+            if(tempLine.contains(NEW_FIELD)) {
+                technologyAiWillDoModifierOr.setNewField(replaceTabulatorAndFreeEqualSign(tempLine, NEW_FIELD, 5));
             }
 
         }
