@@ -25,6 +25,7 @@ public class TechnologyAiWillDoModifierParser extends BaseParser<TechnologyAiWil
 
     private final TechnologyAiWillDoModifierNotParser technologyAiWillDoModifierNotParser = new TechnologyAiWillDoModifierNotParser();
     private final TechnologyAiWillDoModifierOrParser technologyAiWillDoModifierOrParser = new TechnologyAiWillDoModifierOrParser();
+    private final NewObjectParser newObjectParser = new NewObjectParser();
 
     @Override
     public TechnologyAiWillDoModifier parse(List<String> lines) {
@@ -103,6 +104,10 @@ public class TechnologyAiWillDoModifierParser extends BaseParser<TechnologyAiWil
 
             if(tempLine.contains(RUBBER)) {
                 technologyAiWillDoModifier.setRubber(replaceTabulatorAndFreeEqualSign(tempLine, RUBBER, 4));
+            }
+            
+            if(tempLine.contains(NEW_FIELD)) {
+                technologyAiWillDoModifier.setNewField(replaceTabulatorAndFreeEqualSign(tempLine, NEW_FIELD, 4));
             }
         }
 
